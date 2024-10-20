@@ -3,7 +3,9 @@ module shortener-smile
 go 1.22
 
 require (
+	github.com/deatil/go-encoding v1.0.2007
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-playground/assert/v2 v2.2.0
 	github.com/jackc/pgx v3.6.2+incompatible
 	github.com/lib/pq v1.10.9
 	github.com/pressly/goose/v3 v3.22.1

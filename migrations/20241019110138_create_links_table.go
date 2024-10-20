@@ -12,17 +12,19 @@ func init() {
 
 func upCreateLinksTable(ctx context.Context, tx *sql.Tx) error {
 	_, err := tx.ExecContext(ctx, `
-		CREATE TABLE links (
+		CREATE TABLE link (
 			id SERIAL PRIMARY KEY,
 			title TEXT,
 			full_link TEXT,
-			shorten_link VARCHAR(8)
+			shorten_link_code VARCHAR(8),
+			follows BIGINT DEFAULT 0,
+			shorten_link text
 		);
 	`)
 	return err
 }
 
 func downCreateLinksTable(ctx context.Context, tx *sql.Tx) error {
-	_, err := tx.ExecContext(ctx, "DROP TABLE links;")
+	_, err := tx.ExecContext(ctx, "DROP TABLE link;")
 	return err
 }

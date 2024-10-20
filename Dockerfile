@@ -9,9 +9,9 @@ COPY . ./
 
 RUN go install github.com/pressly/goose/v3/cmd/goose@latest
 RUN go mod download
-RUN go build -o /app/http-init -buildvcs=false /app/http-init.go
+RUN go build -o /app/routing-init -buildvcs=false /app/routing-init.go
 
-RUN chmod +x /app/http-init
+RUN chmod +x /app/routing-init
 
 EXPOSE 8000
 

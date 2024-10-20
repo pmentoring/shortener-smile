@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"shortener-smile/database"
+	"shortener-smile/internal/common"
+	"shortener-smile/internal/routing"
 )
 
 func main() {
@@ -11,14 +13,24 @@ func main() {
 
 	r := gin.Default()
 
-	r.GET("/healthcheck", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": "ok"})
-	})
+	conn, err := database.GetConnection()
 
-	err := r.Run("0.0.0.0:8000")
+	if err != nil {
+		panic(err)
+	}
+
+	//routing.Register(r, conn, os.Getenv("INSTANCE_ID"))
+	routing.Register(r, conn, getAppContext())
+
+	err = r.Run("0.0.0.0:8000")
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+}
+
+func getAppContext() *common.ApplicationContext {
+	//return common.NewApplicationContext(os.Getenv("INSTANCE_ID"), os.Getenv("APP_BASE_URL"))
+	return common.NewApplicationContext("01", "http://localhost:8000/")
 }

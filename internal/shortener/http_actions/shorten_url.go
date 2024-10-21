@@ -19,7 +19,7 @@ type ShortenUrlRequest struct {
 	Title string `json:"title" binding:"required"`
 }
 
-func New(db *sql.DB, ctx *common.ApplicationContext) *ShortenURLAction {
+func NewShortenUrlAction(db *sql.DB, ctx *common.ApplicationContext) *ShortenURLAction {
 	return &ShortenURLAction{
 		shortenLinkService: service.NewShortenLinkService(repository.NewLinksRepository(db), ctx),
 	}
@@ -27,10 +27,6 @@ func New(db *sql.DB, ctx *common.ApplicationContext) *ShortenURLAction {
 
 func (a ShortenURLAction) UrlShorten(ctx *gin.Context) {
 	var shortenUrlRequest ShortenUrlRequest
-
-	//strReq, _ := io.ReadAll(ctx.Request.Body)
-	//
-	//fmt.Println(string(strReq))
 
 	if err := ctx.ShouldBind(&shortenUrlRequest); err != nil {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})

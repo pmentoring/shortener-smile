@@ -8,16 +8,21 @@ import (
 	"log"
 	"os"
 	"shortener-smile/database"
-	_ "shortener-smile/migrations"
+	_ "shortener-smile/migration"
 )
 
 var (
 	flags = flag.NewFlagSet("goose", flag.ExitOnError)
-	dir   = flags.String("dir", "/app/migrations/", "directory with migration files")
+	dir   = flags.String("dir", "/app/migration/", "directory with migration files")
 )
 
 func main() {
-	flags.Parse(os.Args[1:])
+	err := flags.Parse(os.Args[1:])
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	args := flags.Args()
 
 	if len(args) < 2 {

@@ -1,4 +1,4 @@
-package migrations
+package migration
 
 import (
 	"context"
@@ -20,6 +20,8 @@ func upCreateLinksTable(ctx context.Context, tx *sql.Tx) error {
 			follows BIGINT DEFAULT 0,
 			shorten_link text
 		);
+
+		CREATE INDEX shorten_link_code_idx ON link (shorten_link_code);
 	`)
 	return err
 }

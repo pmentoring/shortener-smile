@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/deatil/go-encoding/encoding"
 	"shortener-smile/internal/common"
+	"shortener-smile/internal/shortener/domain/models"
 	"shortener-smile/internal/shortener/repository"
 	"strconv"
 )
@@ -20,7 +21,7 @@ func NewShortenLinkService(repo repository.LinksRepository, ctx *common.Applicat
 	}
 }
 
-func (sl ShortenLinkService) CreateShortenLink(title string, url string) (*repository.Link, error) {
+func (sl ShortenLinkService) CreateShortenLink(title string, url string) (*models.Link, error) {
 	nextId, err := sl.repo.GetNextId()
 	if err != nil {
 		return nil, err
@@ -33,7 +34,7 @@ func (sl ShortenLinkService) CreateShortenLink(title string, url string) (*repos
 
 	fmt.Println(shortenUrlCode)
 
-	link := &repository.Link{
+	link := &models.Link{
 		Id:              nextId,
 		Title:           title,
 		FullLink:        url,

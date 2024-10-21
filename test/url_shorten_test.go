@@ -1,4 +1,4 @@
-package routing
+package test
 
 import (
 	"encoding/json"
@@ -9,6 +9,7 @@ import (
 	"net/http/httptest"
 	"shortener-smile/database"
 	"shortener-smile/internal/common"
+	"shortener-smile/internal/routing"
 	"strings"
 	"testing"
 )
@@ -26,7 +27,7 @@ func TestShortenUrl(t *testing.T) {
 
 	router := gin.Default()
 
-	Register(router, db, &common.ApplicationContext{
+	routing.Register(router, db, &common.ApplicationContext{
 		InstanceId: "01",
 		AppBaseUrl: "http://localhost:8000/",
 	})

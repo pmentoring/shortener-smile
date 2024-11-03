@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/deatil/go-encoding/encoding"
+	"log/slog"
 	"shortener-smile/internal/common"
 	"shortener-smile/internal/shortener/domain/models"
 	"shortener-smile/internal/shortener/repository"
@@ -12,12 +13,14 @@ import (
 type ShortenLinkService struct {
 	repo repository.LinksRepository
 	ctx  *common.ApplicationContext
+	log  *slog.Logger
 }
 
-func NewShortenLinkService(repo repository.LinksRepository, ctx *common.ApplicationContext) *ShortenLinkService {
+func NewShortenLinkService(repo repository.LinksRepository, ctx *common.ApplicationContext, log *slog.Logger) *ShortenLinkService {
 	return &ShortenLinkService{
 		repo: repo,
 		ctx:  ctx,
+		log:  log,
 	}
 }
 

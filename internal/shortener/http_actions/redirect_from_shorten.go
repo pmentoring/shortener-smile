@@ -10,7 +10,7 @@ import (
 )
 
 type RedirectFromShortenAction struct {
-	service *service.UnshortenLinkService
+	service *service.UrlShortenerService
 }
 
 func NewRedirectFromShortenAction(db *sql.DB) *RedirectFromShortenAction {
